@@ -6,6 +6,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
+import SignIn from './components/SignIn/SignIn';
 
 import Clarifai from 'clarifai';
 
@@ -33,7 +34,8 @@ class App extends Component {
     this.state = {
       searchField: '',
       imageURL: '',
-      box: {}
+      box: {},
+      route: 'signin'
     };
   }
 
@@ -49,6 +51,9 @@ class App extends Component {
       rightCol: width - clarifyFace.right_col * width,
       bottomRow: height - clarifyFace.bottom_row * height
     };
+  };
+  onRouteChange = route => {
+    this.setState({ route: route });
   };
 
   displayFaceBox = box => {
@@ -77,11 +82,21 @@ class App extends Component {
     return (
       <div className="App">
         <Particles className="particles" params={particleOptions} />
-        <Navigation />
-        <Logo />
-        <Rank />
-        <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} />
-        <FaceRecognition box={this.state.box} imageURL={this.state.imageURL} />
+
+        {this.state.route === 'signin' ? (
+          <SignIn onRouteChange={this.onRouteChange} />
+        ) : (
+          <div>
+            <Navigation onRouteChange={this.onRouteChange} />
+            <Logo />
+            <Rank />
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onButtonSubmit={this.onButtonSubmit}
+            />
+            <FaceRecognition box={this.state.box} imageURL={this.state.imageURL} />
+          </div>
+        )}
       </div>
     );
   }
