@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Particles from 'react-particles-js';
 import './App.css';
-import Navigation from './components/Navigation/Navigation';
-import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
-import Logo from './components/Logo/Logo';
-import Rank from './components/Rank/Rank';
-import FaceRecognition from './components/FaceRecognition/FaceRecognition';
-import SignIn from './components/SignIn/SignIn';
-import Register from './components/Register/Register';
+import Navigation from '../components/Navigation/Navigation';
+import ImageLinkForm from '../components/ImageLinkForm/ImageLinkForm';
+import Logo from '../components/Logo/Logo';
+import Rank from '../components/Rank/Rank';
+import FaceRecognition from '../components/FaceRecognition/FaceRecognition';
+import SignIn from '../components/SignIn/SignIn';
+import Register from '../components/Register/Register';
 
 import Clarifai from 'clarifai';
 
