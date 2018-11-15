@@ -9,14 +9,6 @@ import FaceRecognition from '../components/FaceRecognition/FaceRecognition';
 import SignIn from '../components/SignIn/SignIn';
 import Register from '../components/Register/Register';
 
-import Clarifai from 'clarifai';
-
-// initialize with your api key. This will also work in your browser via http://browserify.org/
-
-const app = new Clarifai.App({
-  apiKey: '58ed09afad2d4868aab4e192c20a3745'
-});
-
 const particleOptions = {
   particles: {
     number: {
@@ -49,12 +41,6 @@ class App extends Component {
     super();
     this.state = initialState;
   }
-
-  // componentDidMount() {
-  //   fetch('http://localhost:3000/')
-  //     .then(resp => resp.json())
-  //     .then(console.log);
-  // }
 
   loadUser = data => {
     this.setState({
@@ -101,8 +87,16 @@ class App extends Component {
   onPictureSubmit = () => {
     this.setState({ imageURL: this.state.searchField });
 
-    app.models
-      .predict(Clarifai.FACE_DETECT_MODEL, this.state.searchField)
+    fetch('http://localhost:3000/imageurl', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        input: this.state.searchField
+      })
+    })
+      .then(response => {
+        return response.json();
+      })
       .then(response => {
         if (response) {
           fetch('http://localhost:3000/image', {
